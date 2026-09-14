@@ -38,7 +38,13 @@ import {
   Waves,
   Wind,
   X,
-  Zap
+  Zap,
+  Maximize2,
+  Minimize2,
+  Minus,
+  MoreHorizontal,
+  MoreVertical,
+  Type
 } from 'lucide-react';
 import {
   Area,
@@ -1219,6 +1225,36 @@ function App() {
   const [alertOpen, setAlertOpen] = useState(true);
   const [darkMode, setDarkMode] = useState(() => window.localStorage.getItem('orca-theme') === 'dark');
   const [highVis, setHighVis] = useState(() => window.localStorage.getItem('orca-highvis') === 'true');
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarWidth, setSidebarWidth] = useState(260);
+  const [isResizing, setIsResizing] = useState(false);
+  const [sidebarMenuOpen, setSidebarMenuOpen] = useState(false);
+
+  // Resize handler for the glowing blue edge sash ("scrol / drag hona chiye")
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      if (!isResizing) return;
+      const newWidth = Math.min(Math.max(e.clientX, 190), 520);
+      setSidebarWidth(newWidth);
+    };
+    const handleMouseUp = () => {
+      if (isResizing) {
+        setIsResizing(false);
+        document.body.style.cursor = 'default';
+        document.body.style.userSelect = 'auto';
+      }
+    };
+    if (isResizing) {
+      window.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('mouseup', handleMouseUp);
+      document.body.style.cursor = 'col-resize';
+      document.body.style.userSelect = 'none';
+    }
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isResizing]);
 
   const labels = copy[language] || copy.en;
 
@@ -1262,10 +1298,18 @@ function App() {
   const initials = user?.avatarInitials || user?.initials || 'U';
 
   return (
-    <div className={`app-shell ${alertOpen ? 'has-banner' : ''}`}>
+    <div className={`app-shell ${alertOpen ? 'has-banner' : ''} ${!sidebarOpen ? 'sidebar-closed' : ''}`}>
       <AnimatePresence>
         {alertOpen && (
-          <motion.div className="critical-banner" initial={{ y: -80 }} animate={{ y: 0 }} exit={{ y: -80 }}>
+          <motion.div
+            className="critical-banner"
+            initial={{ y: -80 }}
+            animate={{ y: 0 }}
+            exit={{ y: -80 }}
+            style={{
+              left: sidebarOpen ? `${sidebarWidth}px` : '0px'
+            }}
+          >
             <AlertTriangle size={19} />
             <span>
               <strong>Safety alert:</strong> Strong winds near Lakshadweep. Avoid open water after 6 PM.
@@ -1277,75 +1321,213 @@ function App() {
         )}
       </AnimatePresence>
 
-      <aside className="sidebar">
-        <div className="brand">
-          <div className="brand-mark">
-            <img src="/bluemind-logo.jpg" alt="BlueMind Agent" className="brand-logo-img" />
+      {sidebarOpen && (
+        <aside
+          className="sidebar"
+          style={{ width: `${sidebarWidth}px` }}
+        >
+          {/* Antigravity IDE Header Controls */}
+          <div className="antigravity-window-header">
+            <div className="antigravity-window-title">
+              <span className="live-status-dot" />
+              <span className="window-title-text">MAHASAGAR NAV</span>
+            </div>
+            <div className="antigravity-window-actions">
+              <div className="ide-win-dropdown-wrap">
+                <button
+                  className="ide-win-btn more-btn"
+                  onClick={() => setSidebarMenuOpen((v) => !v)}
+                  title="More Actions (...)"
+                  type="button"
+                  aria-label="More actions"
+                >
+                  <MoreHorizontal size={15} />
+                </button>
+                {sidebarMenuOpen && (
+                  <div className="antigravity-dropdown-menu">
+                    <button
+                      onClick={() => {
+                        setSidebarWidth(260);
+                        setSidebarMenuOpen(false);
+                      }}
+                      type="button"
+                    >
+                      ↺ Reset Width (260px)
+                    </button>
+                    <button
+                      onClick={() => {
+                        setSidebarOpen(false);
+                        setSidebarMenuOpen(false);
+                      }}
+                      type="button"
+                    >
+                      ✕ Close Navigation (Kata)
+                    </button>
+                  </div>
+                )}
+              </div>
+              <button
+                className="ide-win-btn min-btn"
+                onClick={() => {
+                  setSidebarOpen(false);
+                  setSidebarMenuOpen(false);
+                }}
+                title="Minimize Sidebar (—) - Full Screen"
+                type="button"
+                aria-label="Minimize sidebar"
+              >
+                <Minus size={15} />
+              </button>
+              <button
+                className="ide-win-btn close-btn"
+                onClick={() => {
+                  setSidebarOpen(false);
+                  setSidebarMenuOpen(false);
+                }}
+                title="Close Sidebar (Kata / ✕)"
+                type="button"
+                aria-label="Close sidebar"
+              >
+                <X size={15} />
+              </button>
+            </div>
           </div>
-          <div>
-            <strong>MAHASAGAR</strong>
-            <small>BlueMind · ORCA</small>
+
+          <div className="brand">
+            <div className="brand-mark">
+              <img src="/bluemind-logo.jpg" alt="BlueMind Agent" className="brand-logo-img" />
+            </div>
+            <div>
+              <strong>MAHASAGAR</strong>
+              <small>BlueMind · ORCA</small>
+            </div>
           </div>
-        </div>
 
-        <div className="location-chip">
-          <MapPin size={16} />
-          <span>
-            <small>YOUR LOCATION · Live location</small>
-            <strong>{user?.currentLocation || 'Kochi, Kerala'}</strong>
-          </span>
-        </div>
+          <div className="location-chip">
+            <MapPin size={16} />
+            <span>
+              <small>YOUR LOCATION · Live location</small>
+              <strong>{user?.currentLocation || 'Kochi, Kerala'}</strong>
+            </span>
+          </div>
 
-        <nav>
-          {navItems.map(([id, text, Component]) => (
+          <nav>
+            {navItems.map(([id, text, Component]) => (
+              <button
+                key={id}
+                className={page === id ? 'selected' : ''}
+                onClick={() => setPage(id)}
+                type="button"
+              >
+                <Component size={20} />
+                <span>{labels[id] || text}</span>
+                {id === 'alerts' && <b>3</b>}
+              </button>
+            ))}
+          </nav>
+
+          <div className="side-help">
+            <LifeBuoy size={25} />
+            <strong>Need help at sea?</strong>
+            <span>Keep your phone charged</span>
+            <button onClick={() => setSosOpen(true)} type="button">Open SOS</button>
+          </div>
+
+          {/* Multi-language switcher supporting all 5 coastal languages */}
+          <div className="language-switch">
+            {languages.map((l) => (
+              <button
+                key={l.code}
+                className={language === l.code ? 'active' : ''}
+                onClick={() => changeLanguage(l.code)}
+                type="button"
+                title={l.label}
+              >
+                {l.short}
+              </button>
+            ))}
+          </div>
+
+          {/* Antigravity Signature Blue Accent Line & 3-Dot Edge Handle ("jese ye blue line hoti hai vese scrol / drag hona chiye or side me hi 3 dot do jo pura bak ho jaye") */}
+          <div
+            className={`sidebar-resize-sash ${isResizing ? 'resizing' : ''}`}
+            onMouseDown={(e) => {
+              e.preventDefault();
+              setIsResizing(true);
+            }}
+            title="Drag blue line to resize / Click 3 dots to collapse"
+          >
+            <div className="sash-blue-line" />
             <button
-              key={id}
-              className={page === id ? 'selected' : ''}
-              onClick={() => setPage(id)}
+              className="sash-3dot-toggle"
+              onClick={(e) => {
+                e.stopPropagation();
+                setSidebarOpen(false);
+              }}
+              title="Collapse Sidebar (Pura Bak Ho Jaye)"
               type="button"
+              aria-label="Collapse sidebar"
             >
-              <Component size={20} />
-              <span>{labels[id] || text}</span>
-              {id === 'alerts' && <b>3</b>}
+              <MoreVertical size={16} />
             </button>
-          ))}
-        </nav>
+          </div>
+        </aside>
+      )}
 
-        <div className="side-help">
-          <LifeBuoy size={25} />
-          <strong>Need help at sea?</strong>
-          <span>Keep your phone charged</span>
-          <button onClick={() => setSosOpen(true)} type="button">Open SOS</button>
+      {/* Floating 3-Dot Side Trigger when Sidebar is Closed ("ja jesa hai vesa khul jaye") */}
+      {!sidebarOpen && (
+        <div className="sidebar-floating-edge">
+          <div className="edge-blue-line" />
+          <button
+            className="edge-3dot-btn"
+            onClick={() => setSidebarOpen(true)}
+            title="Open Sidebar (Jesa Tha Vesa Khul Jaye)"
+            type="button"
+            aria-label="Open sidebar"
+          >
+            <MoreVertical size={18} />
+            <span className="edge-pill-label">NAV</span>
+          </button>
         </div>
+      )}
 
-        {/* Multi-language switcher supporting all 5 coastal languages */}
-        <div className="language-switch">
-          {languages.map((l) => (
-            <button
-              key={l.code}
-              className={language === l.code ? 'active' : ''}
-              onClick={() => changeLanguage(l.code)}
-              type="button"
-              title={l.label}
-            >
-              {l.short}
-            </button>
-          ))}
-        </div>
-      </aside>
-
-      <main className="main-content">
+      <main
+        className="main-content"
+        style={{
+          marginLeft: !sidebarOpen ? '0px' : `${sidebarWidth}px`,
+          width: !sidebarOpen ? '100%' : `calc(100% - ${sidebarWidth}px)`
+        }}
+      >
         <header className="topbar">
-          <button className="mobile-menu" aria-label="Open mobile menu" type="button">
+          <button
+            className="topbar-sidebar-toggle"
+            onClick={() => setSidebarOpen((v) => !v)}
+            title={sidebarOpen ? "Collapse Sidebar (Pura Bak)" : "Open Sidebar (Khul Jaye)"}
+            type="button"
+            aria-label="Toggle sidebar"
+          >
+            <MoreVertical size={18} />
+          </button>
+          <button
+            className="mobile-menu"
+            onClick={() => setSidebarOpen((v) => !v)}
+            aria-label="Open mobile menu"
+            type="button"
+          >
             <Menu />
           </button>
           <div className="mobile-brand">
             <img src="/bluemind-logo.jpg" alt="BlueMind" className="mobile-logo-img" /> MAHASAGAR
           </div>
           <div className="top-actions">
-            <button className="theme-toggle" onClick={toggleHighVis} type="button" title="Toggle large text">
-              <Eye size={17} />
-              {highVis ? 'Normal text' : 'Large text'}
+            <button
+              className={`theme-toggle font-toggle-btn ${highVis ? 'active' : ''}`}
+              onClick={toggleHighVis}
+              type="button"
+              title="Toggle font size (Normal / Large)"
+            >
+              <Type size={17} />
+              {highVis ? 'Text: Large (A+)' : 'Text: Normal (A)'}
             </button>
             <button className="theme-toggle" onClick={toggleTheme} type="button">
               {darkMode ? <Sun size={18} /> : <Moon size={18} />}
