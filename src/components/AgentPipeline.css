@@ -1,0 +1,17 @@
+.pipeline-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.pipeline-agent { position: relative; }
+.pipeline-agent.pending { opacity: .58; }
+.pipeline-agent.pending .agent-node { color: #91a5ac; background: #edf2f3; box-shadow: none; }
+.pipeline-agent.active .agent-node { color: var(--agent-color); background: color-mix(in srgb, var(--agent-color) 14%, white); box-shadow: 0 0 0 5px color-mix(in srgb, var(--agent-color) 12%, white), 0 0 15px color-mix(in srgb, var(--agent-color) 26%, transparent); }
+.pipeline-agent.done .agent-node { color: var(--agent-color); background: color-mix(in srgb, var(--agent-color) 10%, white); opacity: .8; }
+.pipeline-agent.done strong { color: #45616b; }
+.pipeline-agent.pending small { color: #9babb0; }
+.pipeline-agent.active small { color: var(--agent-color); font-weight: 600; }
+.pipeline-agent.done small { color: #35956d; }
+.pipeline-agent .flow-line { background: #e2ecee; overflow: hidden; }
+.pipeline-agent .flow-line i { display: block; width: 100%; background: linear-gradient(var(--aqua), var(--mint)); transition: height .35s ease; }
+.agent-check { position: absolute; z-index: 2; top: 10px; left: 14px; display: grid; place-items: center; width: 12px; height: 12px; border-radius: 50%; color: white; background: var(--mint); }
+.pipeline-chevron { width: auto !important; height: auto !important; margin-left: 2px; color: var(--muted); background: transparent !important; font-size: 18px; line-height: 10px; }
+.live-label > span:first-child { animation: livePulse 1.6s ease-out infinite; }
+@keyframes livePulse { 0%, 100% { box-shadow: 0 0 0 0 #34d39955; } 50% { box-shadow: 0 0 0 6px #34d39900; } }
+@media (max-width: 680px) { .pipeline-grid { grid-template-columns: 1fr; } }

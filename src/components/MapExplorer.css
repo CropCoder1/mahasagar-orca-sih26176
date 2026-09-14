@@ -1,0 +1,125 @@
+.map-explorer { display: grid; gap: 16px; }
+
+/* Route Selector Panel */
+.route-panel { position: relative; z-index: 600; display: flex; align-items: center; gap: 10px; padding: 12px; border: 1px solid var(--line); border-radius: 16px; background: #fff; box-shadow: var(--shadow); }
+.route-field { position: relative; min-width: 220px; flex: 1; display: flex; align-items: center; gap: 10px; padding: 9px 12px; border: 1px solid var(--line); border-radius: 11px; color: var(--teal); background: #f7fcfd; }
+.route-field > span { display: grid; gap: 3px; min-width: 0; }
+.route-field small { color: var(--muted); font-size: 10px; letter-spacing: .08em; }
+.route-field strong, .route-field select { color: var(--ink); font-size: 13px; font-weight: 700; }
+.route-field select { width: 100%; min-width: 0; border: 0; outline: 0; background: transparent; cursor: pointer; }
+
+/* Source specific tags & triggers */
+.readonly-tag { margin-left: auto; padding: 4px 7px; border-radius: 6px; color: var(--teal); background: #dff7f8; font-size: 10px; font-weight: 700; white-space: nowrap; }
+.reset-location-tag { margin-left: auto; display: inline-flex; align-items: center; gap: 4px; padding: 4px 7px; border: 1px solid #c8e7eb; border-radius: 6px; color: #087b59; background: #eefbf5; font-size: 10px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+.change-source-btn { display: inline-flex; align-items: center; gap: 3px; padding: 5px 8px; border: 1px solid #bce2ea; border-radius: 7px; color: var(--teal); background: #fff; font-size: 11px; font-weight: 700; cursor: pointer; white-space: nowrap; transition: background 0.15s ease; }
+.change-source-btn:hover { background: #eef8fa; color: var(--navy); }
+
+/* Source Picker Dropdown / Popover */
+.source-picker-popover { position: absolute; z-index: 1000; top: calc(100% + 8px); left: 0; width: 310px; padding: 14px; border: 1px solid var(--line); border-radius: 14px; background: #fff; box-shadow: 0 16px 40px rgba(11, 61, 92, 0.18); display: grid; gap: 10px; }
+.picker-header { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); padding-bottom: 8px; }
+.picker-header strong { color: var(--navy); font-size: 12px; }
+.close-picker-btn { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 6px; color: var(--muted); background: #f0f6f7; cursor: pointer; }
+.harbour-list { display: grid; gap: 5px; }
+.harbour-item { display: flex; align-items: center; gap: 9px; padding: 8px 10px; border-radius: 8px; border: 1px solid transparent; background: #f9fdfd; color: var(--ink); font-size: 12px; font-weight: 600; text-align: left; cursor: pointer; transition: all 0.15s ease; }
+.harbour-item:hover { background: #eff9fa; color: var(--navy); border-color: #caeaf0; }
+.harbour-item.active { background: #e3f6f8; color: var(--teal); border-color: #a7dce5; font-weight: 700; }
+.harbour-item small { margin-left: auto; padding: 2px 5px; border-radius: 4px; background: #d3f3f5; color: var(--teal); font-size: 9px; }
+.harbour-item .check-icon { margin-left: auto; color: var(--teal); }
+.picker-footer { display: grid; gap: 6px; border-top: 1px solid var(--line); padding-top: 8px; }
+.pick-on-map-btn, .use-live-btn { display: flex; align-items: center; gap: 6px; padding: 7px 10px; border-radius: 7px; font-size: 11px; font-weight: 700; cursor: pointer; text-align: left; }
+.pick-on-map-btn { border: 1px dashed #a2dbe5; background: #f2fbfa; color: var(--teal); }
+.pick-on-map-btn:hover { background: #e3f6f7; }
+.use-live-btn { border: 1px solid #bce7d6; background: #edfcf6; color: #087b59; }
+.use-live-btn:hover { background: #def8ee; }
+
+/* Picking mode instructions banner */
+.picking-mode-banner { display: flex; align-items: center; justify-content: space-between; padding: 9px 15px; border: 1px solid #38bdf8; border-radius: 10px; background: #f0f9ff; color: #0369a1; font-size: 12px; font-weight: 700; }
+.picking-mode-banner button { padding: 4px 9px; border-radius: 6px; background: #e0f2fe; color: #0284c7; font-weight: 700; cursor: pointer; }
+
+/* Route Panel Controls */
+.route-arrow { flex: 0 0 auto; color: #9ab4bb; }
+.route-button, .trip-button { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 44px; padding: 0 16px; border-radius: 10px; color: #fff; background: var(--teal); font-size: 12px; font-weight: 700; white-space: nowrap; cursor: pointer; transition: background 0.15s ease; }
+.route-button:hover, .trip-button:hover { background: #0b5c73; }
+.route-button:disabled { cursor: not-allowed; opacity: .45; }
+
+/* Leaflet Frame & Map */
+.leaflet-frame { position: relative; z-index: 1; height: min(64vh, 610px); min-height: 440px; overflow: hidden; border: 8px solid #fff; border-radius: 18px; box-shadow: var(--shadow); }
+.leaflet-map { width: 100%; height: 100%; min-height: 420px; background: #b8e9ed; }
+.leaflet-container { font-family: 'DM Sans', sans-serif; }
+
+/* Permanent Maritime Boundary Tooltips / Badges */
+.boundary-pill { padding: 4px 9px !important; border-radius: 14px !important; font-size: 11px !important; font-weight: 800 !important; letter-spacing: 0.04em !important; box-shadow: 0 4px 12px rgba(11, 61, 92, 0.22) !important; border-width: 1.5px !important; cursor: pointer !important; white-space: nowrap !important; }
+.boundary-pill.purple-pill { background: #fffffffa !important; border-color: #7C3AED !important; color: #6D28D9 !important; }
+.boundary-pill.purple-pill:hover { background: #f5f0ff !important; }
+.boundary-pill.blue-pill { background: #fffffffa !important; border-color: #2563EB !important; color: #1D4ED8 !important; }
+.boundary-pill.blue-pill:hover { background: #eff6ff !important; }
+.boundary-pill::before { display: none !important; }
+
+/* Boundary Popups */
+.boundary-popup .leaflet-popup-content-wrapper { border-radius: 12px; padding: 4px; box-shadow: 0 12px 30px rgba(11, 61, 92, 0.25); border: 1px solid #cae3ea; }
+.boundary-popup .popup-content { padding: 4px 6px; }
+.boundary-popup strong { display: block; margin-bottom: 6px; color: var(--navy); font-size: 13px; }
+.boundary-popup p { margin: 0 0 7px; color: var(--ink); font-size: 12px; line-height: 1.45; }
+.boundary-popup small { display: block; color: var(--muted); font-size: 10px; }
+
+/* PFZ Fish Shoal Marker Tooltips */
+.pfz-marker-tooltip { padding: 4px 8px !important; border-radius: 8px !important; background: #064e3bf2 !important; border: 1.5px solid #10b981 !important; color: #fff !important; font-size: 11px !important; font-weight: 700 !important; box-shadow: 0 4px 12px rgba(6, 78, 59, 0.35) !important; white-space: nowrap !important; }
+.pfz-marker-tooltip::before { border-bottom-color: #064e3bf2 !important; }
+
+/* Map Legend */
+.leaflet-legend { left: 14px; bottom: 14px; z-index: 500; display: flex; align-items: center; flex-wrap: wrap; gap: 12px; padding: 9px 13px; border-radius: 10px; background: rgba(255, 255, 255, 0.94); box-shadow: 0 4px 14px rgba(11, 61, 92, 0.12); font-size: 11px; font-weight: 600; color: var(--muted); }
+.leaflet-legend span { display: flex; align-items: center; gap: 5px; }
+.leaflet-legend i { width: 9px; height: 9px; display: block; border-radius: 50%; }
+.leaflet-legend .green { background: var(--mint); }
+.leaflet-legend .red { background: var(--coral); }
+.leaflet-legend .orange { background: #ec9c42; }
+.leaflet-legend .purple { background: #7C3AED; }
+.leaflet-legend .blue { background: #2563EB; }
+.leaflet-legend .teal { background: #0E7490; }
+.leaflet-legend .amber { background: #F59E0B; }
+.legend-divider { color: #ccdce0; }
+
+/* Floating Trip Status Pill */
+.trip-floating { position: absolute; z-index: 500; top: 14px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 8px; padding: 9px 15px; border: 1px solid #b7e8dc; border-radius: 20px; color: #087b59; background: #effcf6; box-shadow: 0 5px 18px rgba(11, 61, 92, 0.16); font-size: 12px; font-weight: 700; white-space: nowrap; }
+
+/* Route Summary & Trip Controls */
+.route-summary { display: flex; align-items: center; gap: 18px; padding: 15px 20px; border: 1px solid #bce7e5; border-radius: 15px; background: #effafa; }
+.route-summary > div:first-child { display: flex; align-items: center; gap: 10px; color: var(--teal); }
+.route-summary > div:first-child > span { display: grid; gap: 2px; }
+.route-summary small { color: var(--teal); font-size: 10px; font-weight: 800; letter-spacing: .09em; }
+.route-summary strong { color: var(--navy); font-size: 14px; }
+.route-summary p { flex: 1; margin: 0; font-size: 12px; line-height: 1.4; color: var(--ink); }
+.trip-actions { display: flex; align-items: center; gap: 8px; }
+.trip-button.return-btn { background: #D97706; }
+.trip-button.return-btn:hover { background: #B45309; }
+.trip-button.new-trip-btn { background: #059669; }
+.trip-button.new-trip-btn:hover { background: #047857; }
+.trip-button.cancel { background: #EF4444; }
+.trip-button.cancel:hover { background: #DC2626; }
+
+/* Toast */
+.arrival-toast { position: fixed; z-index: 999; right: 25px; bottom: 25px; display: flex; align-items: center; gap: 10px; max-width: 420px; padding: 13px 18px; border: 1px solid #aee8d3; border-radius: 13px; color: #087b59; background: #effcf6; box-shadow: 0 10px 30px rgba(11, 61, 92, 0.18); font-size: 13px; font-weight: 700; }
+.toast-close { margin-left: auto; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; color: #087b59; background: #d7f5e8; cursor: pointer; }
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .route-panel { flex-wrap: wrap; }
+  .route-field { min-width: 0; }
+  .route-button { width: 100%; }
+}
+
+@media (max-width: 680px) {
+  .route-panel { display: grid; grid-template-columns: 1fr; gap: 9px; padding: 10px; }
+  .route-field { min-width: 0; padding: 8px 10px; }
+  .route-field strong, .route-field select { font-size: 12px; }
+  .route-arrow { display: none; }
+  .route-button { min-height: 42px; }
+  .source-picker-popover { width: 100%; left: 0; right: 0; }
+  .leaflet-frame { height: 58vh; min-height: 360px; border-width: 5px; }
+  .leaflet-map { min-height: 350px; }
+  .boundary-pill { font-size: 9px !important; padding: 3px 6px !important; }
+  .route-summary { display: grid; grid-template-columns: 1fr; gap: 12px; padding: 14px; }
+  .trip-actions { width: 100%; }
+  .trip-button { width: 100%; }
+  .arrival-toast { right: 12px; bottom: 80px; left: 12px; max-width: none; }
+}

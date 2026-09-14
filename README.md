@@ -1,70 +1,139 @@
-# Getting Started with Create React App
+<div align="center">
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# MahaSagar AI — ORCA Marine Intelligence
 
-## Available Scripts
+An agentic AI marine safety platform for Indian fishermen — built for Smart India Hackathon 2026
 
-In the project directory, you can run:
+[![React](https://img.shields.io/badge/React-18.3.1-61DAFB?logo=react&logoColor=white)](https://react.dev/) [![Vite](https://img.shields.io/badge/Vite-7.1.5-646CFF?logo=vite&logoColor=white)](https://vite.dev/) [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-UI%20badge-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/) [![Framer Motion](https://img.shields.io/badge/Framer%20Motion-12.23.24-EF008F?logo=framer&logoColor=white)](https://motion.dev/) [![Leaflet](https://img.shields.io/badge/Leaflet-1.9.4-199900?logo=leaflet&logoColor=white)](https://leafletjs.com/) [![SIH 2026](https://img.shields.io/badge/Smart%20India%20Hackathon-2026-orange)](https://www.sih.gov.in/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
-### `npm start`
+</div>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Table of Contents
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- [About the Project](#about-the-project)
+- [Key Features](#key-features)
+- [Screenshots](#screenshots)
+- [Tech Stack](#tech-stack)
+- [Multi-Agent Architecture](#multi-agent-architecture)
+- [Getting Started](#getting-started)
+- [Project Structure](#project-structure)
+- [Team](#team)
+- [Data Sources & Acknowledgments](#data-sources--acknowledgments)
+- [License](#license)
 
-### `npm test`
+## About the Project
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+MahaSagar AI — ORCA addresses Problem Statement SIH26176 from ISRO, where marine ecosystem information is scattered across difficult-to-access sources and is not presented safely for fishermen. The prototype brings fishing-zone intelligence, weather conditions, alerts, route planning, and emergency support into one focused interface. It combines ten visible specialist agents to turn marine context into clear, explainable guidance. A multilingual conversational layer makes the experience more accessible to coastal communities.
 
-### `npm run build`
+## Key Features
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- 🤖 **Multi-agent AI system:** User Interaction & Multilingual, Planning & Orchestration, Marine Data Discovery, Weather Intelligence, Ocean Analytics, Geospatial Reasoning, Risk Assessment & Geofencing, SOS & Emergency Coordination, Visualization, and Reporting & Synthesis.
+- 🌐 **Multilingual conversational interface** with English, Hindi, Malayalam, Tamil, and Telugu content and speech output support.
+- 🐟 **PFZ map** with fish-potential zones, map-based destination selection, and custom safe route planning.
+- 🌦️ **Weather, cyclone, wave, and lightning alerts** with forecast trends and safety factors.
+- 🆘 **SOS emergency coordination** with nearby-vessel awareness and Coast Guard alerting controls in the simulated flow.
+- 🔎 **Explainable “Why this answer?” trails** through visible agent activity and safety-factor reasoning.
+- 👤 **Prototype profile and authentication flow** backed by local browser storage.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Screenshots
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Home Dashboard
 
-### `npm run eject`
+![Home Dashboard](./screenshots/home.png)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### PFZ Map
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![PFZ Map](./screenshots/pfz-map.png)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### SOS Flow
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+![SOS Flow](./screenshots/sos-flow.png)
 
-## Learn More
+### Agent Activity
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+![Agent Activity](./screenshots/agent-activity.png)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Tech Stack
 
-### Code Splitting
+| Category | Technology |
+| --- | --- |
+| UI framework | React 18.3.1, React DOM 18.3.1 |
+| Build tool | Vite 7.1.5 with `@vitejs/plugin-react` |
+| Styling | CSS (`src/App.css`, component stylesheets, and `src/index.css`) |
+| Motion | Framer Motion 12.23.24 |
+| Maps | Leaflet 1.9.4 and React Leaflet 4.2.1 |
+| Charts | Recharts 3.2.1 |
+| Icons | lucide-react 0.468.0 |
+| Testing utilities | Testing Library DOM, Jest DOM, React, and User Event |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Multi-Agent Architecture
 
-### Analyzing the Bundle Size
+The interface visualizes a ten-agent pipeline that moves from user intent to a concise, explainable marine-safety answer:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+1. User Interaction & Multilingual
+2. Planning & Orchestration
+3. Marine Data Discovery
+4. Weather Intelligence
+5. Ocean Analytics
+6. Geospatial Reasoning
+7. Risk Assessment & Geofencing
+8. SOS & Emergency Coordination
+9. Visualization
+10. Reporting & Synthesis
 
-### Making a Progressive Web App
+![Agent Architecture](./screenshots/agent-architecture.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Getting Started
 
-### Advanced Configuration
+### Prerequisites
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- Node.js 18 or newer
+- npm
 
-### Deployment
+### Installation
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```bash
+git clone <YOUR_GITHUB_REPO_URL>
+cd sih
+npm install
+npm run dev
+```
 
-### `npm run build` fails to minify
+Open the local URL printed by Vite, normally `http://localhost:5173`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+> **Prototype data notice:** All marine, weather, PFZ, vessel, GPS, alert, chat, and explainability data in this prototype is **mocked/simulated** for demonstration purposes. It is not live production data, and the SOS flow does not dispatch a real emergency alert.
+
+## Project Structure
+
+```text
+sih/
+├── public/                  # Static assets and web manifest
+├── src/
+│   ├── components/          # AgentPipeline and MapExplorer UI modules
+│   ├── context/             # Local authentication context
+│   ├── data/                # Mock marine data, user data, and translations
+│   ├── App.js               # Main application shell and views
+│   ├── App.css              # Application styling
+│   ├── index.css            # Global styling
+│   └── index.jsx            # React entry point
+├── index.html
+├── package.json
+├── vite.config.js
+└── LICENSE
+```
+
+## Team
+
+- **Team Name:** BlueMind Agent
+- **Problem Statement:** SIH26176 — ORCA: Marine EcOsystem Reasoning with Collaborative Agents
+- **Organization:** ISRO — Department of Space
+- **Theme:** Space Technology
+- **Category:** Software
+
+## Data Sources & Acknowledgments
+
+A production version would integrate INCOIS ERDDAP, Copernicus Marine Service, IMD advisories, and Global Fishing Watch EEZ/MPA data. This prototype uses local mock data modeled on the structure and kinds of information those services can provide. We acknowledge the open marine-data and public-safety ecosystems that make a production ORCA platform possible.
+
+## License
+
+This project is released under the [MIT License](./LICENSE).
